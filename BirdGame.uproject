@@ -11,20 +11,6 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		},
-		{
-			"Name": "Boids",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine",
-				"CoreUObject"
-			]
-		},
-		{
-			"Name": "BoidEditorVisualisations",
-			"Type": "Editor",
-			"LoadingPhase": "PostEngineInit"
 		}
 	],
 	"Plugins": [
@@ -35,5 +21,8 @@
 				"Editor"
 			]
 		}
+	],
+	"AdditionalPluginDirectories": [
+		"../../../../../EpicVault"
 	]
 }

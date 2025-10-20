@@ -37,7 +37,7 @@
 					"BirdGame",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -54,7 +54,7 @@
 					"BirdGame",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -74,7 +74,7 @@
 					"BirdGame",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -92,7 +92,7 @@
 					"BirdGame",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -109,7 +109,7 @@
 					"BirdGame",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -129,7 +129,7 @@
 					"BirdGame",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -147,7 +147,7 @@
 					"BirdGame",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -164,7 +164,7 @@
 					"BirdGame",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -184,7 +184,7 @@
 					"BirdGame",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -202,7 +202,7 @@
 					"BirdGame",
 					"Linux",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -219,7 +219,7 @@
 					"BirdGame",
 					"Linux",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -239,7 +239,7 @@
 					"BirdGame",
 					"Linux",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -257,7 +257,7 @@
 					"BirdGame",
 					"Linux",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -274,7 +274,7 @@
 					"BirdGame",
 					"Linux",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -294,7 +294,7 @@
 					"BirdGame",
 					"Linux",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -312,7 +312,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -329,7 +329,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -349,7 +349,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -367,7 +367,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -384,7 +384,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -404,7 +404,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -422,7 +422,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -439,7 +439,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -459,7 +459,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -477,7 +477,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -494,7 +494,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -514,7 +514,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Test",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -532,7 +532,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -549,7 +549,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -569,7 +569,7 @@
 					"BirdGame",
 					"LinuxArm64",
 					"Shipping",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -587,7 +587,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -604,7 +604,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -624,7 +624,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Debug",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -642,7 +642,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -659,7 +659,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -679,7 +679,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"DebugGame",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -697,7 +697,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -714,7 +714,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -734,7 +734,7 @@
 					"BirdGameEditor",
 					"Linux",
 					"Development",
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-waitmutex",
 					"-clean"
 				],
@@ -752,7 +752,7 @@
 			{
 				"name": "Launch BirdGame (Debug)",
 				"request": "launch",
-				"program": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/Binaries/Linux/UnrealGame-Linux-Debug",
+				"program": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/Binaries/Linux/UnrealGame-Linux-Debug",
 				"preLaunchTask": "BirdGame Linux Debug Build",
 				"args": [
 				],
@@ -761,14 +761,14 @@
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
 			{
 				"name": "Launch BirdGame (DebugGame)",
 				"request": "launch",
-				"program": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/Binaries/Linux/UnrealGame-Linux-DebugGame",
+				"program": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/Binaries/Linux/UnrealGame-Linux-DebugGame",
 				"preLaunchTask": "BirdGame Linux DebugGame Build",
 				"args": [
 				],
@@ -777,14 +777,14 @@
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
 			{
 				"name": "Launch BirdGame (Development)",
 				"request": "launch",
-				"program": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/Binaries/Linux/UnrealGame",
+				"program": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/Binaries/Linux/UnrealGame",
 				"preLaunchTask": "BirdGame Linux Development Build",
 				"args": [
 				],
@@ -793,14 +793,14 @@
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
 			{
 				"name": "Launch BirdGame (Test)",
 				"request": "launch",
-				"program": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/Binaries/Linux/UnrealGame-Linux-Test",
+				"program": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/Binaries/Linux/UnrealGame-Linux-Test",
 				"preLaunchTask": "BirdGame Linux Test Build",
 				"args": [
 				],
@@ -809,14 +809,14 @@
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
 			{
 				"name": "Launch BirdGame (Shipping)",
 				"request": "launch",
-				"program": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/Binaries/Linux/UnrealGame-Linux-Shipping",
+				"program": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/Binaries/Linux/UnrealGame-Linux-Shipping",
 				"preLaunchTask": "BirdGame Linux Shipping Build",
 				"args": [
 				],
@@ -825,7 +825,7 @@
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
@@ -835,14 +835,14 @@
 				"program": "/home/aurora/.local/share/unreal/5.6.1/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
 				"preLaunchTask": "BirdGameEditor Linux Debug Build",
 				"args": [
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject"
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject"
 				],
 				"cwd": "/home/aurora/.local/share/unreal/5.6.1",
 				"type": "cppdbg",
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
@@ -852,14 +852,14 @@
 				"program": "/home/aurora/.local/share/unreal/5.6.1/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
 				"preLaunchTask": "BirdGameEditor Linux DebugGame Build",
 				"args": [
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject"
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject"
 				],
 				"cwd": "/home/aurora/.local/share/unreal/5.6.1",
 				"type": "cppdbg",
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
@@ -869,14 +869,14 @@
 				"program": "/home/aurora/.local/share/unreal/5.6.1/Engine/Binaries/Linux/UnrealEditor",
 				"preLaunchTask": "BirdGameEditor Linux Development Build",
 				"args": [
-					"/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject"
+					"/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject"
 				],
 				"cwd": "/home/aurora/.local/share/unreal/5.6.1",
 				"type": "cppdbg",
 				"visualizerFile": "/home/aurora/.local/share/unreal/5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true,
 				"sourceFileMap": {
-					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/BirdGame",
+					"/UEVFS/BirdGame": "/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame",
 					"/UEVFS/Root": "/home/aurora/.local/share/unreal/5.6.1"
 				}
 			},
@@ -889,7 +889,7 @@
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=/home/aurora/Documents/University/AGP41024/Assignments/BirdGame/BirdGame.uproject",
+					"-project=/home/aurora/Documents/University/AGP41024/Assignments/Assignment3/BirdGame/BirdGame.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"

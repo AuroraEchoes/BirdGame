@@ -990,6 +990,18 @@
 			"Type": "SymbolFile"
 		},
 		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.sym",
+			"Type": "SymbolFile"
+		},
+		{
 			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CQTest.debug",
 			"Type": "SymbolFile"
 		},
@@ -5343,6 +5355,18 @@
 		},
 		{
 			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-VulkanShaderFormat.sym",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.sym",
 			"Type": "SymbolFile"
 		},
 		{
@@ -10570,27 +10594,15 @@
 			"Type": "SymbolFile"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-BoidEditorVisualisations.debug",
+			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Fab.debug",
 			"Type": "SymbolFile"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-BoidEditorVisualisations.so",
+			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Fab.so",
 			"Type": "DynamicLibrary"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-BoidEditorVisualisations.sym",
-			"Type": "SymbolFile"
-		},
-		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Boids.debug",
-			"Type": "SymbolFile"
-		},
-		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Boids.so",
-			"Type": "DynamicLibrary"
-		},
-		{
-			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Boids.sym",
+			"Path": "$(ProjectDir)/Binaries/Linux/libUnrealEditor-Fab.sym",
 			"Type": "SymbolFile"
 		}
 	],
@@ -10602,6 +10614,10 @@
 		{
 			"Path": "$(EngineDir)/Binaries/Linux/AgentInterface.pdb",
 			"Type": "DebugNonUFS"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/EpicWebHelper",
+			"Type": "NonUFS"
 		},
 		{
 			"Path": "$(EngineDir)/Binaries/Linux/UnrealBuildAccelerator/libUbaHost.so",
@@ -28592,6 +28608,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "/home/aurora/Documents/EpicVault/FabPlugin_5.6/data/Engine/Plugins/Fab/Fab.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(ProjectDir)/BirdGame.uproject",
 			"Type": "UFS"
 		}
@@ -28673,6 +28693,7 @@
 		"EnhancedInput",
 		"EnvironmentQueryEditor",
 		"ExampleDeviceProfileSelector",
+		"Fab",
 		"FacialAnimation",
 		"FastBuildController",
 		"Fracture",
