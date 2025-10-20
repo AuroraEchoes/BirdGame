@@ -1,0 +1,9 @@
+{
+	"BuildId": "43139311",
+	"Modules": 
+	{
+		"BirdGame": "libUnrealEditor-BirdGame.so",
+		"BoidEditorVisualisations": "libUnrealEditor-BoidEditorVisualisations.so",
+		"Boids": "libUnrealEditor-Boids.so"
+	}
+}
