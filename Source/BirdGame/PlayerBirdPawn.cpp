@@ -24,6 +24,11 @@ APlayerBirdPawn::APlayerBirdPawn()
 void APlayerBirdPawn::BeginPlay()
 {
     Super::BeginPlay();
+
+    if (MovementComponent)
+    {
+        MovementComponent->SetBaseMovementSpeed(BaseMovementSpeed);
+    }
     if (const APlayerController* PlayerController = Cast<APlayerController>(GetController()))
     {
         const TObjectPtr<APlayerCameraManager>& CameraManager = PlayerController->PlayerCameraManager;

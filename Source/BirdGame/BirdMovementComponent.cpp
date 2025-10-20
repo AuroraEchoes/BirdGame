@@ -3,11 +3,16 @@
 
 #include "BirdMovementComponent.h"
 
+void UBirdMovementComponent::SetBaseMovementSpeed(const float MovementSpeed)
+{
+    BaseMovementSpeed = MovementSpeed;
+}
+
 void UBirdMovementComponent::TickComponent(float DeltaTime,
-    enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+                                           enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-    if (const FVector DesiredDirection = (ConsumeInputVector().GetClampedToMaxSize(1.0f)) * DeltaTime * 200.0f;
+    if (const FVector DesiredDirection = (ConsumeInputVector().GetClampedToMaxSize(1.0f)) * DeltaTime * BaseMovementSpeed;
         !DesiredDirection.IsNearlyZero())
     {
         FHitResult Hit;

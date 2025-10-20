@@ -13,6 +13,11 @@ UCLASS()
 class BIRDGAME_API UBirdMovementComponent : public UPawnMovementComponent
 {
     GENERATED_BODY()
+public:
+    void SetBaseMovementSpeed(const float MovementSpeed);
+ 
 protected:
     virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+    float BaseMovementSpeed{200.0f};
 };

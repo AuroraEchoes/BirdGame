@@ -10,7 +10,6 @@ ABoidFlock::ABoidFlock()
     PrimaryActorTick.bCanEverTick = true;
     SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Transform"));
     SetRootComponent(SceneComponent);
-    bReplicates = false;
 }
 
 // Called when the game starts or when spawned
@@ -79,8 +78,6 @@ TArray<FVector> ABoidFlock::GetCollisionSweepPoints(int NumPoints)
 
 void ABoidFlock::AddSpawnedBoid(APawn* Boid)
 {
-    // Setup networking stuff
-    Boid->SetReplicates(true);
     ControllingBoids.Add(Boid);
 }
 
