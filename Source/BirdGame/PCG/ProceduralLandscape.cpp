@@ -7,6 +7,9 @@
 #include "ProceduralMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "KismetProceduralMeshLibrary.h"
+#include "ProceduralLake.h"
+#include "ProceduralFoliage/Grass.h"
+#include "ProceduralTree/ProceduralTree.h"
 #include "ProceduralTree/TreeBase.h"
 
 // Sets default values
@@ -23,6 +26,9 @@ AProceduralLandscape::AProceduralLandscape()
 void AProceduralLandscape::BeginPlay()
 {
 	Super::BeginPlay();
+	ProceduralTree->SpawnTrees();
+	ProceduralGrass->SpawnGrasses();
+	ProceduralLake->SpawnLakes();
 }
 
 
@@ -60,19 +66,6 @@ bool AProceduralLandscape::ShouldTickIfViewportsOnly() const
 	return true;
 }
 
-FVector AProceduralLandscape::GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C)
-{
-	float r1 = FMath::FRand();
-	float r2 = FMath::FRand();
-
-	// use square root to ensure uniform distribution
-	float u = 1 - FMath::Sqrt(r1);
-	float v = r2 * FMath::Sqrt(r1);
-	float w = 1 - u - v;
-
-	return u*A + v*B + w*C; // uses barycentric coordinates to ensure the point is within the triangle mesh
-}
-
 // Called every frame
 void AProceduralLandscape::Tick(float DeltaTime)
 {
@@ -93,18 +86,32 @@ void AProceduralLandscape::ClearLandscape()
 	UVCoords.Empty();
 	TreeSpawnPoints.Empty();
 	GrassSpawnPoints.Empty();
+	FlatSpawnPoints.Empty();
 
-	for (ATreeBase* SpawnedTree : SpawnedTrees) //do a loop for grass, branch, and leaves
+	for (ATreeBase* SpawnedTree : ProceduralTree->SpawnedTrees) //do a loop for grass, branch, and leaves
 	{
 		SpawnedTree->Destroy();
 	}
-	SpawnedTrees.Empty();
+	ProceduralTree->SpawnedTrees.Empty();
 	
 	if (ProceduralMesh)
 	{
 		ProceduralMesh->ClearMeshSection(0);
 	}
 	UKismetSystemLibrary::FlushPersistentDebugLines(GetWorld());
+}
+
+FVector AProceduralLandscape::GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C)
+{
+	float r1 = FMath::FRand();
+	float r2 = FMath::FRand();
+
+	// use square root to ensure uniform distribution
+	float u = 1 - FMath::Sqrt(r1);
+	float v = r2 * FMath::Sqrt(r1);
+	float w = 1 - u - v;
+
+	return u*A + v*B + w*C; // uses barycentric coordinates to ensure the point is within the triangle mesh
 }
 
 void AProceduralLandscape::GenerateSpawnPoints(TArray<FVector>& TerrainSpawnPoints, int32 MaxFrequency, int32 MinFrequency)
@@ -164,11 +171,33 @@ void AProceduralLandscape::GenerateQuadSpawnPoints()
 
 			if (bIsFlat)
 			{
+				float SpawnFrequency = 0.5f; //50% chance of lake spawning on a flat square.
 				FVector Center = (Vertices[V0] + Vertices[V1] + Vertices[V2] + Vertices[V3]) / 4.0f;
-				FlatSpawnPoints.Add(Center);
+				
+				if (FMath::FRandRange(0.0f, 1.0f) <= SpawnFrequency)
+				{
+					//FVector Center = (Vertices[V0] + Vertices[V1] + Vertices[V2] + Vertices[V3]) / 4.0f;
+					FlatSpawnPoints.Add(Center);
 
-				DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::Yellow, true);
+					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::Yellow, true); //center of spawnpoint
+
+					DrawDebugSphere(GetWorld(), Center, 500, 12, FColor::Cyan, true, 10.f); //radius to destroy foliage
+					for (int32 k = GrassSpawnPoints.Num() - 1; k >= 0; k--)
+					{
+						float Dist = FVector::Dist(GrassSpawnPoints[k], Center);
+						if (Dist < 500)
+						{
+							GrassSpawnPoints.RemoveAt(k);
+						}
+					}
+				}
+
+				else
+				{
+					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::White, true); //signals this is a flat quad, but is not chosen as spawnpoint
+				}
 			}
+			
 		}
 	}
 }

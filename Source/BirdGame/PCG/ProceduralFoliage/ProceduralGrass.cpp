@@ -18,10 +18,6 @@ AProceduralGrass::AProceduralGrass()
 void AProceduralGrass::BeginPlay()
 {
 	Super::BeginPlay();
-	FVector Location = FVector(0.f, 0.f, 0.f);
-	// SpawnGrass(Location);
-	// SpawnGrassCluster(Location);
-	SpawnGrasses();
 }
 
 void AProceduralGrass::SpawnGrass(const FVector& Location)
@@ -38,12 +34,13 @@ void AProceduralGrass::SpawnGrass(const FVector& Location)
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(Location);
 		SpawnTransform.SetRotation(FQuat(Rotation));
-		//SpawnTransform.SetScale3D(FVector(Scale, Scale, Scale));
 		
 		Grass = GetWorld()->SpawnActor<AGrass>(GrassClass, SpawnTransform, SpawnParams);
 
 		if (Grass)
 		{
+			Grass->Tags.Add(FName("Grass"));
+			
 			UStaticMeshComponent* MeshComp = Grass->FindComponentByClass<UStaticMeshComponent>();
 			if (MeshComp && PossibleGrassMaterials.Num() > 0)
 			{
@@ -52,7 +49,7 @@ void AProceduralGrass::SpawnGrass(const FVector& Location)
 			}
 			UE_LOG(LogTemp, Warning, TEXT("Grass spawned: %s"), *Grass->GetName());
 			Grass->SetFolderPath(TEXT("/SpawnedGrass"));
-			// SpawnedGrass.Add(Grass);
+			SpawnedGrass.Add(Grass);
 		}
 	}
 

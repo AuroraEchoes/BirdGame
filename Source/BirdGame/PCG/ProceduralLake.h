@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "ProceduralLake.generated.h"
 
+class AProceduralGrass;
+class AProceduralLandscape;
 class ALake;
 
 UCLASS()
@@ -29,8 +31,19 @@ protected:
 	UPROPERTY()
 	ALake* Lake;
 
+	UPROPERTY(EditAnywhere)
+	AProceduralLandscape* ProceduralLandscape;
+
+	UPROPERTY(EditAnywhere)
+	AProceduralGrass* ProceduralGrass;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	void SpawnLakes();
+	
+	UPROPERTY()
+	TArray<ALake*> SpawnedLakes;
 
 };

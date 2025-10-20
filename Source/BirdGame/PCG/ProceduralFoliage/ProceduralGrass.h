@@ -18,6 +18,9 @@ public:
 	// Sets default values for this actor's properties
 	AProceduralGrass();
 
+	UPROPERTY()
+	TArray<AGrass*> SpawnedGrass;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -25,8 +28,6 @@ protected:
 	void SpawnGrass(const FVector& Location);
 
 	void SpawnGrassCluster(const FVector& SpawnOrigin);
-
-	void SpawnGrasses();
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGrass> GrassClass;
@@ -50,5 +51,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void SpawnGrasses();
 
 };

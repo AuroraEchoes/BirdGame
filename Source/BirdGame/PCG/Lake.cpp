@@ -3,6 +3,8 @@
 
 #include "Lake.h"
 
+#include "ProceduralFoliage/Grass.h"
+
 // Sets default values
 ALake::ALake()
 {
@@ -20,7 +22,6 @@ ALake::ALake()
 void ALake::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame

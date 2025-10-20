@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ProceduralFoliage/ProceduralGrass.h"
 #include "ProceduralLandscape.generated.h"
 
+class AProceduralLake;
 class AProceduralTree;
 class ATreeBase;
 class ATree;
@@ -88,6 +90,12 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	AProceduralTree* ProceduralTree; //get the procedural tree spawner actor from outliner
+
+	UPROPERTY(EditAnywhere)
+	AProceduralGrass* ProceduralGrass; //get the procedural grass spawner actor from outliner
+	
+	UPROPERTY(EditAnywhere)
+	AProceduralLake* ProceduralLake; //get the procedural lake spawner actor from outliner
 	
 
 public:	
@@ -115,9 +123,6 @@ public:
 	/// Clears the Landscape and regenerates all vertices and nodes procedurally.
 	///</summary>
 	void GenerateLandscape();
-
-	UPROPERTY()
-	TArray<ATreeBase*> SpawnedTrees;
 
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> TreeSpawnPoints; //stores spawn points for trees

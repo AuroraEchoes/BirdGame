@@ -25,6 +25,9 @@ public:
 	void SpawnTreeBase(const FVector& Location);
 	void SpawnTrees();
 
+	UPROPERTY()
+	TArray<ATreeBase*> SpawnedTrees;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -56,6 +59,10 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	AProceduralLandscape* ProceduralLandscape;
+
+	bool BIsNakedTree;
+
+	float NakedTreeSpawnRate = 0.5f;
 
 	
 

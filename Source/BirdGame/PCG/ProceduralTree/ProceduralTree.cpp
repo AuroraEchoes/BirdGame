@@ -24,13 +24,10 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 		FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f);
-		//float Scale = FMath::FRandRange(0.5f, 2.0f);
-		//float Scale = 1.0f;
+
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(Location);
 		SpawnTransform.SetRotation(FQuat(Rotation));
-		//SpawnTransform.SetScale3D(FVector(Scale, Scale, Scale));
-		//FRotator::ZeroRotator
 		
 		TreeBase = GetWorld()->SpawnActor<ATreeBase>(TreeBaseClass, SpawnTransform, SpawnParams);
 
@@ -38,12 +35,21 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Tree spawned: %s"), *TreeBase->GetName());
 			TreeBase->SetFolderPath(TEXT("/SpawnedTrees"));
-			// SpawnedTrees.Add(TreeBase);
 		}
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("TreeClass not set. Need to assign it in the editor."));
+	}
+
+	if ( FMath::FRandRange(0.0f, 1.0f) <= NakedTreeSpawnRate)
+	{
+		BIsNakedTree = true;
+		TreeBase->Tags.Add(FName("Naked Tree")); //for later integration with boids for birds to land on.
+	}
+	else
+	{
+		BIsNakedTree = false;
 	}
 
 	int32 numOfBranches; //random num from 3 to 8
@@ -68,7 +74,7 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 	
 	TreeBase->SetActorScale3D(FVector(Scale));
 	
-	ProceduralLandscape->SpawnedTrees.Add(TreeBase);
+	SpawnedTrees.Add(TreeBase);
 	
 }
 
@@ -85,9 +91,9 @@ void AProceduralTree::BeginPlay()
 {
 	Super::BeginPlay();
 	// debugging
-	FVector Location = FVector(-250.f, 0.f, 0.f);
-	SpawnTreeBase(Location);
-	SpawnTrees();
+	// FVector Location = FVector(-250.f, 0.f, 0.f);
+	// SpawnTreeBase(Location);
+	// SpawnTrees();
 }
 
 
@@ -124,11 +130,9 @@ void AProceduralTree::SpawnBranch(const float& Scale, const FVector& Location, A
 				MeshComp->SetStaticMesh(PossibleMeshBranches[Index]); //set the random branch as the static mesh of branch
 			}
 			UE_LOG(LogTemp, Warning, TEXT("Branch spawned: %s"), *Branch->GetName());
-			// TreeBase->SetFolderPath(TEXT("/SpawnedTrees"));
 
-			//Branch->AttachToActor(MainTree, FAttachmentTransformRules::KeepWorldTransform);
-
-			SpawnLeaves(MeshComp, Branch);
+			if (!BIsNakedTree)
+				SpawnLeaves(MeshComp, Branch);
 		}
 	}
 	else
