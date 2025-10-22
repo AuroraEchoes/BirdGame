@@ -7,23 +7,27 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/MovementComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 APlayerBirdPawn::APlayerBirdPawn()
 {
     // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates = true;
     MovementComponent = CreateDefaultSubobject<UBirdMovementComponent>(TEXT("Bird Movement Component"));
     MovementComponent->UpdatedComponent = RootComponent;
-    bUseControllerRotationPitch = true;
-    bUseControllerRotationRoll = true;
-    bUseControllerRotationYaw = true;
+    MovementComponent->SetIsReplicated(true);
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationRoll = false;
+    bUseControllerRotationYaw = false;
 }
 
 // Called when the game starts or when spawned
 void APlayerBirdPawn::BeginPlay()
 {
     Super::BeginPlay();
+    SetReplicateMovement(true);
 
     if (MovementComponent)
     {
@@ -47,13 +51,21 @@ UPawnMovementComponent* APlayerBirdPawn::GetMovementComponent() const
     return MovementComponent;
 }
 
+void APlayerBirdPawn::GetLifetimeReplicatedProps(
+    TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(APlayerBirdPawn, MovementComponent);
+}
+
 // Called every frame
 void APlayerBirdPawn::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     AddMovementInput(GetActorForwardVector());
     const float LateralLiftRatio = GetActorRotation().Roll / MaxRollDegrees;
-    AddControllerYawInput(LateralLiftRatio);
+    // AddControllerYawInput(LateralLiftRatio);
+    MovementComponent->AddRotation(FRotator(0.0f, LateralLiftRatio, 0.0f));
 }
 
 // Called to bind functionality to input
@@ -77,6 +89,5 @@ void APlayerBirdPawn::Flap(const FInputActionValue& Value)
 void APlayerBirdPawn::Look(const FInputActionValue& Value)
 {
     const FVector2D LookVector = Value.Get<FVector2D>() * LookSensitivity;
-    AddControllerRollInput(FMath::Clamp(LookVector.X, -0.25f, 0.25f));
-    AddControllerPitchInput(LookVector.Y);
+    MovementComponent->AddRotation(FRotator(-LookVector.Y, 0.0f, LookVector.X));
 }

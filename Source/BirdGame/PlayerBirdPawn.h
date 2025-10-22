@@ -25,8 +25,8 @@ public:
     virtual void SetupPlayerInputComponent(
         class UInputComponent* PlayerInputComponent) override;
 
+
 protected:
-    
     // Flap to gain height, then glide
     UPROPERTY(EditDefaultsOnly)
     UInputMappingContext* InputMappingContext;
@@ -41,13 +41,14 @@ protected:
     float MaxRollDegrees{30.0f};
     UPROPERTY(EditDefaultsOnly)
     float BaseMovementSpeed{200.0f};
-
-    UPROPERTY()
+    UPROPERTY(Replicated)
     UBirdMovementComponent* MovementComponent;
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
     virtual UPawnMovementComponent* GetMovementComponent() const override;
+    virtual void GetLifetimeReplicatedProps(
+        TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
     void Flap(const FInputActionValue& Value);

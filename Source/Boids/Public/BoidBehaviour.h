@@ -12,9 +12,9 @@ struct FBoidBehaviourDirectionInfo
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadWrite)
-    FVector DesiredDirection;
+    FVector DesiredDirection{};
     UPROPERTY(BlueprintReadWrite)
-    double RelativeWeighting;
+    double RelativeWeighting{};
 };
 
 UCLASS(Blueprintable, BlueprintType)

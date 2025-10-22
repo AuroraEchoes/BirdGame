@@ -21,7 +21,13 @@ public:
     UFUNCTION(BlueprintCallable)
     APawn* GetPlayerLocation();
     UFUNCTION(BlueprintCallable)
+    TArray<APawn*> GetAllPlayers() const;
+    UFUNCTION(BlueprintCallable)
     FVector GetClosestUnobstructedDirection(const APawn* Boid, double Distance, int NumPoints);
+    UFUNCTION(BlueprintCallable)
+    AGameStateBase* GetGameState();
+    UFUNCTION(BlueprintCallable)
+    UWorld* GetWorldContext() const;
     void AddBoidBehaviour(const TSubclassOf<UBoidBehaviour>& BehaviourClass);
     void DebugVisualiseBehaviour(const APawn* Boid, const UBoidBehaviour* Behaviour, const FVector& DesiredDirection) const;
 

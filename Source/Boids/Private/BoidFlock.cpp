@@ -2,6 +2,7 @@
 
 
 #include "BoidFlock.h"
+#include "UnrealEngine.h"
 
 // Sets default values
 ABoidFlock::ABoidFlock()
@@ -25,10 +26,12 @@ void ABoidFlock::Tick(float DeltaTime)
 
 void ABoidFlock::TickControllingBoids(const float& DeltaTime)
 {
-
-    for (APawn* Boid : ControllingBoids)
+    if (GetLocalRole() == ROLE_Authority)
     {
-        TickControllingBoid(DeltaTime, Boid);
+        for (APawn* Boid : ControllingBoids)
+        {
+            TickControllingBoid(DeltaTime, Boid);
+        }
     }
 }
 
@@ -108,6 +111,20 @@ APawn* ABoidFlock::GetPlayerLocation()
     return GetWorld()->GetFirstLocalPlayerFromController()->GetPlayerController(GetWorld())->GetPawn();
 }
 
+TArray<APawn*> ABoidFlock::GetAllPlayers() const
+{
+    TArray<APawn*> Pawns{};
+    for (TPlayerControllerIterator<APlayerController>::ServerAll It(GetWorld()); It; ++It)
+    {
+        APlayerController* Controller = *It;
+        if (APawn* Pawn = Controller->GetPawn())
+        {
+            Pawns.Add(Pawn);
+        }
+    }
+    return Pawns;
+}
+
 FVector ABoidFlock::GetClosestUnobstructedDirection(const APawn* Boid, double Distance, int NumPoints)
 {
     auto SweepAlongVector = [&](const FVector& Direction) -> double
@@ -144,6 +161,16 @@ FVector ABoidFlock::GetClosestUnobstructedDirection(const APawn* Boid, double Di
     // DrawDebugLine(GetWorld(), Boid->GetActorLocation(), Boid->GetActorLocation() + Boid->GetActorForwardVector() * 500.0f, FColor::Red, false, -1, 0, 5);
     // DrawDebugLine(GetWorld(), Boid->GetActorLocation(), Boid->GetActorLocation() + ClosestCurrentVector * 500.0f, FColor::Green, false, -1, 0, 5);
     return ClosestCurrentVector;
+}
+
+AGameStateBase* ABoidFlock::GetGameState()
+{
+    return GetWorld()->GetGameState();
+}
+
+UWorld* ABoidFlock::GetWorldContext() const
+{
+    return GetWorld();
 }
 
 void ABoidFlock::AddBoidBehaviour(const TSubclassOf<UBoidBehaviour>& BehaviourClass)
