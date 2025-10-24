@@ -141,5 +141,8 @@ public:
 
 	//rock spawn points?
 	UPROPERTY(VisibleAnywhere) 
-	TArray<FVector> FlatSpawnPoints; //stores spawn points on flat squares for lakes and grassland for feeding
+	TArray<FVector> FlatSpawnPoints; //stores spawn points on flat squares for lakes
+
+	UPROPERTY(VisibleAnywhere) 
+	TArray<FVector> PotentialGoalPoints; //stores spawn points on flat squares for a goal point
 };

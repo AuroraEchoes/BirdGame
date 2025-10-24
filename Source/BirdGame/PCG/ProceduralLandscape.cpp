@@ -4,6 +4,7 @@
 #include "ProceduralLandscape.h"
 
 #include "EngineUtils.h"
+#include "Goal.h"
 #include "ProceduralMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "KismetProceduralMeshLibrary.h"
@@ -26,6 +27,7 @@ AProceduralLandscape::AProceduralLandscape()
 void AProceduralLandscape::BeginPlay()
 {
 	Super::BeginPlay();
+	SpawnGoalPoint();
 	ProceduralTree->SpawnTrees();
 	ProceduralGrass->SpawnGrasses();
 	ProceduralLake->SpawnLakes();
@@ -87,6 +89,9 @@ void AProceduralLandscape::ClearLandscape()
 	TreeSpawnPoints.Empty();
 	GrassSpawnPoints.Empty();
 	FlatSpawnPoints.Empty();
+	PotentialGoalPoints.Empty();
+
+	Goal->Destroy();
 
 	for (ATreeBase* SpawnedTree : ProceduralTree->SpawnedTrees) //do a loop for grass, branch, and leaves
 	{
@@ -194,7 +199,8 @@ void AProceduralLandscape::GenerateQuadSpawnPoints()
 
 				else
 				{
-					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::White, true); //signals this is a flat quad, but is not chosen as spawnpoint
+					PotentialGoalPoints.Add(Center);
+					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::White, true); //signals this is a flat quad, but is not chosen as spawnpoint for lakes.
 				}
 			}
 			
@@ -265,7 +271,39 @@ void AProceduralLandscape::GenerateLandscape()
 
 void AProceduralLandscape::SpawnGoalPoint()
 {
-	//spawn a goal point at (0,0,0).
-	//then choose a random flat tile to spawn on (where a lake might spawn).
+	FVector GoalLocation = FVector::ZeroVector;
+	if (PotentialGoalPoints.Num() > 0) //choose a random spawn point on a flat surface to spawn the goal
+	{
+		int32 RandomIndex = FMath::RandRange(0, PotentialGoalPoints.Num() - 1);
+		GoalLocation = PotentialGoalPoints[RandomIndex];
+	}
+	else
+	{
+		//get the last spawn point from FlatSpawnPoints and pop it off
+		GoalLocation = FlatSpawnPoints.Last();
+		FlatSpawnPoints.Pop();
+	}
+
+	//Spawn in the goal
+	if (GoalClass)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.SpawnCollisionHandlingOverride =
+			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f);
+
+		FTransform SpawnTransform;
+		SpawnTransform.SetLocation(GoalLocation);
+		SpawnTransform.SetRotation(FQuat(Rotation));
+		
+		Goal = GetWorld()->SpawnActor<AGoal>(GoalClass, SpawnTransform, SpawnParams);
+
+		if (Goal)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Goal spawned: %s"), *Goal->GetName());
+		}
+	}
 }
 
