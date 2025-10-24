@@ -7,6 +7,7 @@
 #include "ProceduralFoliage/ProceduralGrass.h"
 #include "ProceduralLandscape.generated.h"
 
+class AGoal;
 class AProceduralLake;
 class AProceduralTree;
 class ATreeBase;
@@ -82,11 +83,17 @@ protected:
 
 	FVector GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C);
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ATree> TreeClass; //getting the blueprint class of tree
+	// UPROPERTY(EditDefaultsOnly)
+	// TSubclassOf<ATree> TreeClass; //getting the blueprint class of tree
+	//
+	// UPROPERTY()
+	// ATree* Tree; //stores the instance of tree class here
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AGoal> GoalClass; //getting the blueprint class of the goal
+	
 	UPROPERTY()
-	ATree* Tree; //stores the instance of tree class here
+	AGoal* Goal; //stores the instance of the goal class here
 
 	UPROPERTY(EditAnywhere)
 	AProceduralTree* ProceduralTree; //get the procedural tree spawner actor from outliner
@@ -123,6 +130,8 @@ public:
 	/// Clears the Landscape and regenerates all vertices and nodes procedurally.
 	///</summary>
 	void GenerateLandscape();
+
+	void SpawnGoalPoint();
 
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> TreeSpawnPoints; //stores spawn points for trees

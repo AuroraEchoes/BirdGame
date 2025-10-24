@@ -263,3 +263,9 @@ void AProceduralLandscape::GenerateLandscape()
 	}
 }
 
+void AProceduralLandscape::SpawnGoalPoint()
+{
+	//spawn a goal point at (0,0,0).
+	//then choose a random flat tile to spawn on (where a lake might spawn).
+}
+
