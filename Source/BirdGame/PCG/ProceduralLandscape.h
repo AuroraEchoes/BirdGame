@@ -31,22 +31,13 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UProceduralMeshComponent* ProceduralMesh;
 
-	/// <summary>
-	/// Create a flat, simple plane procedurally.
-	/// </summary>
-	void CreateSimplePlane();
-
 	UPROPERTY()
 	TArray<FVector> Vertices;
 	UPROPERTY()
 	TArray<int32> Triangles;
 	UPROPERTY()
 	TArray<FVector2D> UVCoords;
-
-	UPROPERTY()
-	TArray<int32> FlatTerrainTriangles; //stores triangles that are flat?
 	
-
 	virtual bool ShouldTickIfViewportsOnly() const override;
 
 	UPROPERTY(EditAnywhere)
@@ -82,12 +73,6 @@ protected:
 	int32 MaxGrassFrequency = 5; //determines the amount of max spawn points per triangle
 
 	FVector GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C);
-
-	// UPROPERTY(EditDefaultsOnly)
-	// TSubclassOf<ATree> TreeClass; //getting the blueprint class of tree
-	//
-	// UPROPERTY()
-	// ATree* Tree; //stores the instance of tree class here
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGoal> GoalClass; //getting the blueprint class of the goal
@@ -139,7 +124,7 @@ public:
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> GrassSpawnPoints; //stores spawn points for grass
 
-	//rock spawn points?
+	
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> FlatSpawnPoints; //stores spawn points on flat squares for lakes
 

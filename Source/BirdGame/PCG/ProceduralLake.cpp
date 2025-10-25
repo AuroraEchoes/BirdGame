@@ -19,19 +19,17 @@ AProceduralLake::AProceduralLake()
 void AProceduralLake::BeginPlay()
 {
 	Super::BeginPlay();
-	//SpawnLakes();
 }
 
 void AProceduralLake::SpawnLake(const FVector& Location)
 {
+	//spawns the lake at the given location.
 	if (LakeClass)
 	{
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.SpawnCollisionHandlingOverride =
 			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-		//FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f);
 
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(Location + FVector(0,0,10)); //move it up slightly above the landscape mesh
@@ -42,6 +40,7 @@ void AProceduralLake::SpawnLake(const FVector& Location)
 		
 		if (Lake)
 		{
+			//creates a dynamic material of lake to procedurally generate a lake shape using random values.
 			UMaterialInstanceDynamic* DynamicMat = MeshComp->CreateAndSetMaterialInstanceDynamic(0);
 
 			if (DynamicMat)
@@ -77,6 +76,7 @@ void AProceduralLake::SpawnLake(const FVector& Location)
 
 void AProceduralLake::SpawnLakes()
 {
+	//gets spawn points on the middle of flat quads from ProceduralLandscape to spawn the lake on.
 	for (auto Vertex : ProceduralLandscape->FlatSpawnPoints)
 	{
 		SpawnLake(Vertex);
