@@ -51,7 +51,6 @@ void AProceduralGrass::SpawnGrass(const FVector& Location)
 			
 			UE_LOG(LogTemp, Warning, TEXT("Grass spawned: %s"), *Grass->GetName());
 			Grass->SetFolderPath(TEXT("/SpawnedGrass"));
-			SpawnedGrass.Add(Grass);
 		}
 	}
 

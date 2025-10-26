@@ -55,6 +55,12 @@ void AProceduralLandscape::Tick(float DeltaTime)
 
 void AProceduralLandscape::ClearLandscape()
 {
+	if (ProceduralMesh)
+	{
+		ProceduralMesh->ClearMeshSection(0);
+	}
+	UKismetSystemLibrary::FlushPersistentDebugLines(GetWorld());
+	
 	Vertices.Empty();
 	Triangles.Empty();
 	UVCoords.Empty();
@@ -62,20 +68,6 @@ void AProceduralLandscape::ClearLandscape()
 	GrassSpawnPoints.Empty();
 	FlatSpawnPoints.Empty();
 	PotentialGoalPoints.Empty();
-
-	Goal->Destroy();
-
-	for (ATreeBase* SpawnedTree : ProceduralTree->SpawnedTrees) //do a loop for grass, branch, and leaves
-	{
-		SpawnedTree->Destroy();
-	}
-	ProceduralTree->SpawnedTrees.Empty();
-	
-	if (ProceduralMesh)
-	{
-		ProceduralMesh->ClearMeshSection(0);
-	}
-	UKismetSystemLibrary::FlushPersistentDebugLines(GetWorld());
 }
 
 FVector AProceduralLandscape::GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C)

@@ -42,8 +42,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	void SpawnLakes();
-	
-	UPROPERTY()
-	TArray<ALake*> SpawnedLakes;
 
 };

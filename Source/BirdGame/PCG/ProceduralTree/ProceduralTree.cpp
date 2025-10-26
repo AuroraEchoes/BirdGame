@@ -79,9 +79,6 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 
 	// apply scale the tree
 	TreeBase->SetActorScale3D(FVector(Scale));
-	
-	SpawnedTrees.Add(TreeBase);
-	
 }
 
 void AProceduralTree::SpawnTrees()

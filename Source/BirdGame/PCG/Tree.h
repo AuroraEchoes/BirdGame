@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// A placeholder of a complete tree model for debugging purposes
 
 #pragma once
 

@@ -63,8 +63,6 @@ void AProceduralLake::SpawnLake(const FVector& Location)
 			
 			UE_LOG(LogTemp, Warning, TEXT("Lake spawned: %s"), *Lake->GetName());
 			Lake->SetFolderPath(TEXT("/SpawnedLake"));
-
-			SpawnedLakes.Add(Lake);
 		}
 	}
 
