@@ -44,9 +44,11 @@ void AProceduralGrass::SpawnGrass(const FVector& Location)
 			UStaticMeshComponent* MeshComp = Grass->FindComponentByClass<UStaticMeshComponent>();
 			if (MeshComp && PossibleGrassMaterials.Num() > 0)
 			{
+				//assigns a random foliage image from the PossibleGrassMaterials assigned in the editor
 				int32 MaterialIndex = FMath::RandRange(0, PossibleGrassMaterials.Num() - 1);
 				MeshComp->SetMaterial(0, PossibleGrassMaterials[MaterialIndex]);
 			}
+			
 			UE_LOG(LogTemp, Warning, TEXT("Grass spawned: %s"), *Grass->GetName());
 			Grass->SetFolderPath(TEXT("/SpawnedGrass"));
 			SpawnedGrass.Add(Grass);
@@ -61,6 +63,7 @@ void AProceduralGrass::SpawnGrass(const FVector& Location)
 
 void AProceduralGrass::SpawnGrassCluster(const FVector& SpawnOrigin)
 {
+	//spawns multiple foliage planes within a circle from the spawn origin with a random rotation.
 	for (int32 i = 0; i < FoliageNum; i++) 
 	{
 		FVector2D RandPoint = FMath::RandPointInCircle(SpawnRadius); // Get a random location within a circle
@@ -71,6 +74,7 @@ void AProceduralGrass::SpawnGrassCluster(const FVector& SpawnOrigin)
 
 void AProceduralGrass::SpawnGrasses()
 {
+	//gets the grass spawn points generated from ProceduralLandscape and spawns in a cluster of foliage.
 	for (auto Vertex : ProceduralLandscape->GrassSpawnPoints)
 	{
 		SpawnGrassCluster(Vertex);
