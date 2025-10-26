@@ -4,6 +4,7 @@
 #include "ProceduralLandscape.h"
 
 #include "EngineUtils.h"
+#include "Goal.h"
 #include "ProceduralMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "KismetProceduralMeshLibrary.h"
@@ -26,39 +27,12 @@ AProceduralLandscape::AProceduralLandscape()
 void AProceduralLandscape::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Procedurally spawn environmental elements into the scene
+	SpawnGoalPoint();
 	ProceduralTree->SpawnTrees();
 	ProceduralGrass->SpawnGrasses();
 	ProceduralLake->SpawnLakes();
-}
-
-
-void AProceduralLandscape::CreateSimplePlane()
-{
-	ClearLandscape();
-	Vertices.Append(
-		{
-		FVector::Zero(),
-		FVector(1000.0f, 0.0f, FMath::RandRange(-500.0f, 500.0f)),
-		FVector(0.0f, 1000.0f, FMath::RandRange(-500.0f, 500.0f)),
-		FVector(1000.0f, 1000.0f, FMath::RandRange(-500.0f, 500.0f)),
-		});
-	for (auto Vertex : Vertices)
-	{
-		DrawDebugSphere(GetWorld(), Vertex, 50.0f, 4, FColor::Blue, true);
-	}
-	Triangles.Append({0,2,1,1,2,3});
-	UVCoords.Append({
-		FVector2D::Zero(),
-		FVector2D::UnitX(),
-		FVector2D::UnitY(),
-		FVector2D::One()
-	});
-	if (ProceduralMesh)
-	{
-		ProceduralMesh->CreateMeshSection(0,
-			Vertices, Triangles, TArray<FVector>(),
-			UVCoords, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
-	}
 }
 
 bool AProceduralLandscape::ShouldTickIfViewportsOnly() const
@@ -81,24 +55,19 @@ void AProceduralLandscape::Tick(float DeltaTime)
 
 void AProceduralLandscape::ClearLandscape()
 {
+	if (ProceduralMesh)
+	{
+		ProceduralMesh->ClearMeshSection(0);
+	}
+	UKismetSystemLibrary::FlushPersistentDebugLines(GetWorld());
+	
 	Vertices.Empty();
 	Triangles.Empty();
 	UVCoords.Empty();
 	TreeSpawnPoints.Empty();
 	GrassSpawnPoints.Empty();
 	FlatSpawnPoints.Empty();
-
-	for (ATreeBase* SpawnedTree : ProceduralTree->SpawnedTrees) //do a loop for grass, branch, and leaves
-	{
-		SpawnedTree->Destroy();
-	}
-	ProceduralTree->SpawnedTrees.Empty();
-	
-	if (ProceduralMesh)
-	{
-		ProceduralMesh->ClearMeshSection(0);
-	}
-	UKismetSystemLibrary::FlushPersistentDebugLines(GetWorld());
+	PotentialGoalPoints.Empty();
 }
 
 FVector AProceduralLandscape::GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C)
@@ -116,6 +85,7 @@ FVector AProceduralLandscape::GetRandPointInTriangle(const FVector& A, const FVe
 
 void AProceduralLandscape::GenerateSpawnPoints(TArray<FVector>& TerrainSpawnPoints, int32 MaxFrequency, int32 MinFrequency)
 {
+	//Goes through the triangles, and generate spawn points (between the min and max frequency) within that triangle
 	for (int32 i = 0; i < Triangles.Num(); i += 3)
 	{
 		int32 SpawnPointFrequency = FMath::RandRange(MinFrequency, MaxFrequency);
@@ -163,12 +133,14 @@ void AProceduralLandscape::GenerateQuadSpawnPoints()
 
 			float AvgZ = (Vertices[V0].Z + Vertices[V1].Z + Vertices[V2].Z + Vertices[V3].Z) / 4.0f;
 
+			//determine if quad is flat by checking the 4 points with a ZTolerance.
 			bool bIsFlat =
 				FMath::Abs(Vertices[V0].Z - AvgZ) < ZTolerance &&
 				FMath::Abs(Vertices[V1].Z - AvgZ) < ZTolerance &&
 				FMath::Abs(Vertices[V2].Z - AvgZ) < ZTolerance &&
 				FMath::Abs(Vertices[V3].Z - AvgZ) < ZTolerance;
 
+			//if it is flat, then put a flat spawn point in the center of that quad
 			if (bIsFlat)
 			{
 				float SpawnFrequency = 0.5f; //50% chance of lake spawning on a flat square.
@@ -182,6 +154,8 @@ void AProceduralLandscape::GenerateQuadSpawnPoints()
 					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::Yellow, true); //center of spawnpoint
 
 					DrawDebugSphere(GetWorld(), Center, 500, 12, FColor::Cyan, true, 10.f); //radius to destroy foliage
+
+					//destroy any grass spawn points in that quad so there won't be grass on lakes.
 					for (int32 k = GrassSpawnPoints.Num() - 1; k >= 0; k--)
 					{
 						float Dist = FVector::Dist(GrassSpawnPoints[k], Center);
@@ -194,7 +168,9 @@ void AProceduralLandscape::GenerateQuadSpawnPoints()
 
 				else
 				{
-					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::White, true); //signals this is a flat quad, but is not chosen as spawnpoint
+					//Add spawn points as a potential co-ord for a goal.
+					PotentialGoalPoints.Add(Center);
+					DrawDebugSphere(GetWorld(), Center, 50.f, 6, FColor::White, true); //signals this is a flat quad, but is not chosen as spawn point for lakes.
 				}
 			}
 			
@@ -260,6 +236,44 @@ void AProceduralLandscape::GenerateLandscape()
 		ProceduralMesh->CreateMeshSection(0,
 			Vertices, Triangles, Normals,
 			UVCoords, TArray<FColor>(), Tangents, true);
+	}
+}
+
+void AProceduralLandscape::SpawnGoalPoint()
+{
+	FVector GoalLocation = FVector::ZeroVector;
+	if (PotentialGoalPoints.Num() > 0) //choose a random spawn point on a flat surface to spawn the goal
+	{
+		int32 RandomIndex = FMath::RandRange(0, PotentialGoalPoints.Num() - 1);
+		GoalLocation = PotentialGoalPoints[RandomIndex];
+	}
+	else
+	{
+		//get the last spawn point from FlatSpawnPoints and pop it off
+		GoalLocation = FlatSpawnPoints.Last();
+		FlatSpawnPoints.Pop();
+	}
+
+	//Spawn in the goal
+	if (GoalClass)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.SpawnCollisionHandlingOverride =
+			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f);
+
+		FTransform SpawnTransform;
+		SpawnTransform.SetLocation(GoalLocation);
+		SpawnTransform.SetRotation(FQuat(Rotation));
+		
+		Goal = GetWorld()->SpawnActor<AGoal>(GoalClass, SpawnTransform, SpawnParams);
+
+		if (Goal)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Goal spawned: %s"), *Goal->GetName());
+		}
 	}
 }
 

@@ -18,8 +18,6 @@ public:
 	// Sets default values for this actor's properties
 	AProceduralGrass();
 
-	UPROPERTY()
-	TArray<AGrass*> SpawnedGrass;
 
 protected:
 	// Called when the game starts or when spawned

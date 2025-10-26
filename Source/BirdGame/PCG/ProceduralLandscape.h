@@ -7,6 +7,7 @@
 #include "ProceduralFoliage/ProceduralGrass.h"
 #include "ProceduralLandscape.generated.h"
 
+class AGoal;
 class AProceduralLake;
 class AProceduralTree;
 class ATreeBase;
@@ -30,22 +31,13 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UProceduralMeshComponent* ProceduralMesh;
 
-	/// <summary>
-	/// Create a flat, simple plane procedurally.
-	/// </summary>
-	void CreateSimplePlane();
-
 	UPROPERTY()
 	TArray<FVector> Vertices;
 	UPROPERTY()
 	TArray<int32> Triangles;
 	UPROPERTY()
 	TArray<FVector2D> UVCoords;
-
-	UPROPERTY()
-	TArray<int32> FlatTerrainTriangles; //stores triangles that are flat?
 	
-
 	virtual bool ShouldTickIfViewportsOnly() const override;
 
 	UPROPERTY(EditAnywhere)
@@ -83,10 +75,10 @@ protected:
 	FVector GetRandPointInTriangle(const FVector& A, const FVector& B, const FVector& C);
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ATree> TreeClass; //getting the blueprint class of tree
-
+	TSubclassOf<AGoal> GoalClass; //getting the blueprint class of the goal
+	
 	UPROPERTY()
-	ATree* Tree; //stores the instance of tree class here
+	AGoal* Goal; //stores the instance of the goal class here
 
 	UPROPERTY(EditAnywhere)
 	AProceduralTree* ProceduralTree; //get the procedural tree spawner actor from outliner
@@ -124,13 +116,18 @@ public:
 	///</summary>
 	void GenerateLandscape();
 
+	void SpawnGoalPoint();
+
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> TreeSpawnPoints; //stores spawn points for trees
 
 	UPROPERTY(VisibleAnywhere) 
 	TArray<FVector> GrassSpawnPoints; //stores spawn points for grass
 
-	//rock spawn points?
+	
 	UPROPERTY(VisibleAnywhere) 
-	TArray<FVector> FlatSpawnPoints; //stores spawn points on flat squares for lakes and grassland for feeding
+	TArray<FVector> FlatSpawnPoints; //stores spawn points on flat squares for lakes
+
+	UPROPERTY(VisibleAnywhere) 
+	TArray<FVector> PotentialGoalPoints; //stores spawn points on flat squares for a goal point
 };

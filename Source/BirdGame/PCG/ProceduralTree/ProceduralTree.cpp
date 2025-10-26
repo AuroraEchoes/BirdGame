@@ -15,7 +15,9 @@ AProceduralTree::AProceduralTree()
 
 void AProceduralTree::SpawnTreeBase(const FVector& Location)
 {
-	float Scale = FMath::FRandRange(0.5f, 2.0f);
+	float Scale = FMath::FRandRange(0.5f, 2.0f); //gets a random scale for the tree. This determines the size of the mesh and how many branches will be on the tree.
+
+	// spawn the base of the tree.
 	if (TreeBaseClass)
 	{
 		FActorSpawnParameters SpawnParams;
@@ -23,7 +25,7 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 		SpawnParams.SpawnCollisionHandlingOverride =
 			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
-		FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f);
+		FRotator Rotation = FRotator(0.f, FMath::FRandRange(0.f, 360.f), 0.f); //set a random 360 degree rotation of the base of the tree.
 
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(Location);
@@ -42,6 +44,7 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 		UE_LOG(LogTemp, Error, TEXT("TreeClass not set. Need to assign it in the editor."));
 	}
 
+	// determine whether this tree will have leaves or not
 	if ( FMath::FRandRange(0.0f, 1.0f) <= NakedTreeSpawnRate)
 	{
 		BIsNakedTree = true;
@@ -52,7 +55,8 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 		BIsNakedTree = false;
 	}
 
-	int32 numOfBranches; //random num from 3 to 8
+	// the number of branches will be a random num from 3 to 8 based on scale.
+	int32 numOfBranches;
 
 	if (Scale < 1.0f)
 	{
@@ -67,19 +71,19 @@ void AProceduralTree::SpawnTreeBase(const FVector& Location)
 		numOfBranches = 8;
 	}
 
+	// spawn branches for the tree
 	for (int32 i = 0; i < numOfBranches; i++)
 	{
-		SpawnBranch(Scale, Location, TreeBase); //attach branch to tree base
+		SpawnBranch(Scale, Location, TreeBase); 
 	}
-	
+
+	// apply scale the tree
 	TreeBase->SetActorScale3D(FVector(Scale));
-	
-	SpawnedTrees.Add(TreeBase);
-	
 }
 
 void AProceduralTree::SpawnTrees()
 {
+	//Gets the tree spawn points from procedural landscape and spawns a tree.
 	for (auto Vertex : ProceduralLandscape->TreeSpawnPoints)
 	{
 		SpawnTreeBase(Vertex);
@@ -90,15 +94,12 @@ void AProceduralTree::SpawnTrees()
 void AProceduralTree::BeginPlay()
 {
 	Super::BeginPlay();
-	// debugging
-	// FVector Location = FVector(-250.f, 0.f, 0.f);
-	// SpawnTreeBase(Location);
-	// SpawnTrees();
 }
 
 
 void AProceduralTree::SpawnBranch(const float& Scale, const FVector& Location, ATreeBase* MainTree)
 {
+	//spawn the branch using the treebase/maintree coordinates
 	if (BranchClass)
 	{
 		FActorSpawnParameters SpawnParams;
@@ -111,18 +112,16 @@ void AProceduralTree::SpawnBranch(const float& Scale, const FVector& Location, A
 		
 		SpawnTransform.SetLocation(Location);
 		SpawnTransform.SetRotation(FQuat(Rotation));
-		//SpawnTransform.SetScale3D(FVector(Scale, Scale, Scale));
 	
 		
 		Branch = GetWorld()->SpawnActor<ABranch>(BranchClass, SpawnTransform, SpawnParams);
-
-		// Leaves = GetWorld()->SpawnActor<ALeaves>(LeavesClass, SpawnTransform, SpawnParams);
 
 		Branch->AddActorWorldOffset(FVector(0.f, 0.f, FMath::FRandRange(50.f, 170.f))); //moves the branch up and down the base of the tree.
 		Branch->AttachToActor(MainTree, FAttachmentTransformRules::KeepWorldTransform);
 		
 		if (Branch)
 		{
+			//randomly assign a branch mesh
 			UStaticMeshComponent* MeshComp = Branch->FindComponentByClass<UStaticMeshComponent>(); //get the mesh of branch
 			if (MeshComp && PossibleMeshBranches.Num() > 0) //check if possible mesh branches are assigned
 			{
@@ -131,6 +130,7 @@ void AProceduralTree::SpawnBranch(const float& Scale, const FVector& Location, A
 			}
 			UE_LOG(LogTemp, Warning, TEXT("Branch spawned: %s"), *Branch->GetName());
 
+			//if the tree is not a naked tree, spawn the leaves on the socket of the branch
 			if (!BIsNakedTree)
 				SpawnLeaves(MeshComp, Branch);
 		}
@@ -143,6 +143,7 @@ void AProceduralTree::SpawnBranch(const float& Scale, const FVector& Location, A
 
 void AProceduralTree::SpawnLeaves(UStaticMeshComponent* BranchMesh, ABranch* BranchToAttach)
 {
+	//spawn the leaves at the socket of the branch.
 	if (BranchMesh->DoesSocketExist("Socket"))
 	{
 		FTransform SocketTransform = BranchMesh->GetSocketTransform("Socket", RTS_World);
