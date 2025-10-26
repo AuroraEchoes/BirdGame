@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BoidBase.h"
 #include "BoidBehaviour.h"
 #include "GameFramework/Actor.h"
 #include "BoidFlock.generated.h"
@@ -15,29 +16,31 @@ class BOIDS_API ABoidFlock : public AActor
 public:
     ABoidFlock();
     virtual void Tick(float DeltaTime) override;
-    void AddSpawnedBoid(APawn* Boid);
+    void AddSpawnedBoid(ABoidBase* Boid);
     UFUNCTION(BlueprintCallable)
-    TArray<APawn*> GetNearbyBoidLocations(const APawn* Boid, double Distance);
+    TArray<ABoidBase*> GetNearbyBoidLocations(const ABoidBase* Boid, double Distance);
     UFUNCTION(BlueprintCallable)
     APawn* GetPlayerLocation();
     UFUNCTION(BlueprintCallable)
     TArray<APawn*> GetAllPlayers() const;
     UFUNCTION(BlueprintCallable)
-    FVector GetClosestUnobstructedDirection(const APawn* Boid, double Distance, int NumPoints);
+    FVector GetClosestUnobstructedDirection(const ABoidBase* Boid, double Distance, int NumPoints);
     UFUNCTION(BlueprintCallable)
     AGameStateBase* GetGameState();
     UFUNCTION(BlueprintCallable)
     UWorld* GetWorldContext() const;
     void AddBoidBehaviour(const TSubclassOf<UBoidBehaviour>& BehaviourClass);
-    void DebugVisualiseBehaviour(const APawn* Boid, const UBoidBehaviour* Behaviour, const FVector& DesiredDirection) const;
+    void DebugVisualiseBehaviour(const ABoidBase* Boid, const UBoidBehaviour* Behaviour, const FVector& DesiredDirection) const;
 
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
+    UFUNCTION(Server, Reliable)
     void TickControllingBoids(const float& DeltaTime);
-    void TickControllingBoid(const float& DeltaTime, APawn* Boid);
+    UFUNCTION(Server, Reliable)
+    void TickControllingBoid(const float& DeltaTime, ABoidBase* Boid);
     TArray<FVector> GetCollisionSweepPoints(int NumPoints);
-    
+
     UPROPERTY(EditAnywhere)
     double MaxBoidSpeed = 100.0;
     UPROPERTY(EditAnywhere)
@@ -45,10 +48,11 @@ protected:
     UPROPERTY(EditAnywhere)
     USceneComponent* SceneComponent;
     UPROPERTY(VisibleAnywhere)
-    TArray<APawn*> ControllingBoids;
+    TArray<ABoidBase*> ControllingBoids;
     UPROPERTY(VisibleAnywhere)
     TArray<UBoidBehaviour*> BoidBehaviours;
     UPROPERTY(EditAnywhere)
     bool DebugVisualiseAllBehaviours;
     double TotalBehaviourWeighting{};
+    int PacketIndex{};
 };

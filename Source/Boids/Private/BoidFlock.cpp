@@ -2,6 +2,8 @@
 
 
 #include "BoidFlock.h"
+
+#include "BoidMovementComponent.h"
 #include "UnrealEngine.h"
 
 // Sets default values
@@ -9,6 +11,7 @@ ABoidFlock::ABoidFlock()
 {
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
+    SetReplicates(true);
     SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Transform"));
     SetRootComponent(SceneComponent);
 }
@@ -16,48 +19,57 @@ ABoidFlock::ABoidFlock()
 // Called when the game starts or when spawned
 void ABoidFlock::BeginPlay() { Super::BeginPlay(); }
 
-
-// Called every frame
-void ABoidFlock::Tick(float DeltaTime)
+void ABoidFlock::TickControllingBoids_Implementation(const float& DeltaTime)
 {
-    Super::Tick(DeltaTime);
-    TickControllingBoids(DeltaTime);
-}
-
-void ABoidFlock::TickControllingBoids(const float& DeltaTime)
-{
-    if (GetLocalRole() == ROLE_Authority)
+    if (HasAuthority())
     {
-        for (APawn* Boid : ControllingBoids)
+        for (ABoidBase* Boid : ControllingBoids)
         {
             TickControllingBoid(DeltaTime, Boid);
         }
     }
 }
 
-void ABoidFlock::TickControllingBoid(const float& DeltaTime, APawn* Boid)
+
+// Called every frame
+void ABoidFlock::Tick(float DeltaTime)
 {
-    FVector DesiredDirection{};
-    for (UBoidBehaviour* Behaviour : BoidBehaviours)
+    Super::Tick(DeltaTime);
+    if (HasAuthority())
     {
-        const FBoidBehaviourDirectionInfo DirectionInfo = Behaviour->GetDesiredDirection(this, Boid);
-        FVector BehaviourDesiredDirection = DirectionInfo.DesiredDirection;
-        BehaviourDesiredDirection.Normalize();
-        BehaviourDesiredDirection *= DirectionInfo.RelativeWeighting;
-        if (DebugVisualiseAllBehaviours || Behaviour->ShouldDebugVisualise())
-        {
-            DebugVisualiseBehaviour(Boid, Behaviour, BehaviourDesiredDirection);
-        }
-        const double Weighting = Behaviour->GetWeighting() / TotalBehaviourWeighting;
-        DesiredDirection += BehaviourDesiredDirection * Weighting;
+        TickControllingBoids(DeltaTime);
+        PacketIndex++;
     }
-    DesiredDirection.Normalize();
-    const FRotator DesiredRotation = DesiredDirection.Rotation();
-    const FRotator CurrentRotation = Boid->GetActorRotation();
-    const FRotator NewRotation = FMath::RInterpConstantTo(CurrentRotation, DesiredRotation, DeltaTime, MaxBoidTurnRateDegrees);
-    Boid->SetActorRotation(NewRotation);
-    const FVector DeltaMovement = Boid->GetActorForwardVector() * MaxBoidSpeed * DeltaTime;
-    Boid->AddActorLocalOffset(DeltaMovement, false, nullptr, ETeleportType::None);
+}
+
+void ABoidFlock::TickControllingBoid_Implementation(const float& DeltaTime,
+    ABoidBase* Boid)
+{
+    if (HasAuthority())
+    {
+        FVector DesiredDirection{};
+        for (UBoidBehaviour* Behaviour : BoidBehaviours)
+        {
+            const FBoidBehaviourDirectionInfo DirectionInfo = Behaviour->GetDesiredDirection(this, Boid);
+            FVector BehaviourDesiredDirection = DirectionInfo.DesiredDirection;
+            BehaviourDesiredDirection.Normalize();
+            BehaviourDesiredDirection *= DirectionInfo.RelativeWeighting;
+            if (DebugVisualiseAllBehaviours || Behaviour->ShouldDebugVisualise())
+            {
+                DebugVisualiseBehaviour(Boid, Behaviour, BehaviourDesiredDirection);
+            }
+            const double Weighting = Behaviour->GetWeighting() / TotalBehaviourWeighting;
+            DesiredDirection += BehaviourDesiredDirection * Weighting;
+        }
+        DesiredDirection.Normalize();
+        const FRotator DesiredRotation = DesiredDirection.Rotation();
+        const FRotator CurrentRotation = Boid->GetActorRotation();
+        const FRotator NewRotation = FMath::RInterpConstantTo(CurrentRotation, DesiredRotation, DeltaTime, MaxBoidTurnRateDegrees);
+        const FVector NewLocation = (Boid->GetActorForwardVector() * MaxBoidSpeed * DeltaTime) + Boid->GetActorLocation();
+        Boid->SetActorLocationAndRotation(NewLocation, NewRotation);
+        // Boid->SetActorLocationRotation(NewLocation, NewRotation, GetWorld()->GetTimeSeconds());
+        // Boid->SendBoidLocation(NewLocation, NewRotation, PacketIndex, GetWorld()->GetTimeSeconds());
+    }
 }
 
 // TODO: Some sort of memoisation
@@ -79,19 +91,21 @@ TArray<FVector> ABoidFlock::GetCollisionSweepPoints(int NumPoints)
     return Points;
 }
 
-void ABoidFlock::AddSpawnedBoid(APawn* Boid)
+void ABoidFlock::AddSpawnedBoid(ABoidBase* Boid)
 {
     ControllingBoids.Add(Boid);
+    // Boid->SetMaxTurnRateDegrees(MaxBoidTurnRateDegrees);
+    // Boid->SetMovementSpeed(MaxBoidSpeed);
 }
 
-TArray<APawn*> ABoidFlock::GetNearbyBoidLocations(const APawn* Boid, const double Distance)
+TArray<ABoidBase*> ABoidFlock::GetNearbyBoidLocations(const ABoidBase* Boid, const double Distance)
 {
-    TArray<APawn*> NearbyBoids{};
+    TArray<ABoidBase*> NearbyBoids{};
     if (Boid)
     {
         const FVector Location = Boid->GetActorLocation();
         const double DistanceSquared = Distance * Distance;
-        for (APawn* NearbyBoid : ControllingBoids)
+        for (ABoidBase* NearbyBoid : ControllingBoids)
         {
             if (NearbyBoid)
             {
@@ -125,7 +139,7 @@ TArray<APawn*> ABoidFlock::GetAllPlayers() const
     return Pawns;
 }
 
-FVector ABoidFlock::GetClosestUnobstructedDirection(const APawn* Boid, double Distance, int NumPoints)
+FVector ABoidFlock::GetClosestUnobstructedDirection(const ABoidBase* Boid, double Distance, int NumPoints)
 {
     auto SweepAlongVector = [&](const FVector& Direction) -> double
     {
@@ -180,7 +194,7 @@ void ABoidFlock::AddBoidBehaviour(const TSubclassOf<UBoidBehaviour>& BehaviourCl
     BoidBehaviours.Add(Behaviour);
 }
 
-void ABoidFlock::DebugVisualiseBehaviour(const APawn* Boid, const UBoidBehaviour* Behaviour, const FVector& DesiredDirection) const
+void ABoidFlock::DebugVisualiseBehaviour(const ABoidBase* Boid, const UBoidBehaviour* Behaviour, const FVector& DesiredDirection) const
 {
     const double NeighbourRadius = Behaviour->GetNeighbourRadius();
     const int Segments = static_cast<int>(FMath::Max(25.0, NeighbourRadius / 50.0));

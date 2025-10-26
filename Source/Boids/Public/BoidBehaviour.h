@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BoidBase.h"
 #include "BoidBehaviour.generated.h"
 
 class ABoidFlock;
@@ -24,7 +25,7 @@ class BOIDS_API UBoidBehaviour : public UObject
 
 public:
     UFUNCTION(BlueprintNativeEvent)
-    FBoidBehaviourDirectionInfo GetDesiredDirection(ABoidFlock* Flock, APawn* Boid);
+    FBoidBehaviourDirectionInfo GetDesiredDirection(ABoidFlock* Flock, ABoidBase* Boid);
     double GetWeighting() const;
     double GetNeighbourRadius() const;
     FColor GetDebugColor() const;
@@ -41,5 +42,5 @@ protected:
     bool DebugVisualise;
 
     UFUNCTION(BlueprintCallable)
-    TArray<APawn*> GetNeighbours(ABoidFlock* Flock, const APawn* Boid) const;
+    TArray<ABoidBase*> GetNeighbours(ABoidFlock* Flock, const ABoidBase* Boid) const;
 };

@@ -41,14 +41,12 @@ protected:
     float MaxRollDegrees{30.0f};
     UPROPERTY(EditDefaultsOnly)
     float BaseMovementSpeed{200.0f};
-    UPROPERTY(Replicated)
+    // UPROPERTY(Replicated)
     UBirdMovementComponent* MovementComponent;
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
     virtual UPawnMovementComponent* GetMovementComponent() const override;
-    virtual void GetLifetimeReplicatedProps(
-        TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
     void Flap(const FInputActionValue& Value);

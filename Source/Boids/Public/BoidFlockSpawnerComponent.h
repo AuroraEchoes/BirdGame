@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BoidBase.h"
 #include "Components/ActorComponent.h"
 #include "BoidFlockSpawnerComponent.generated.h"
 
@@ -30,7 +31,7 @@ protected:
     UPROPERTY(EditAnywhere)
     double SpawnRadius = 300.0;
     UPROPERTY(EditAnywhere)
-    TSubclassOf<APawn> BoidInstanceClass;
+    TSubclassOf<ABoidBase> BoidInstanceClass;
     UPROPERTY(EditAnywhere)
     TArray<TSubclassOf<UBoidBehaviour>> InitialBoidBehaviours;
     

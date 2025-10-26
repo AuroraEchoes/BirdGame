@@ -14,7 +14,7 @@ APlayerBirdPawn::APlayerBirdPawn()
 {
     // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-    bReplicates = true;
+    // bReplicates = true;
     MovementComponent = CreateDefaultSubobject<UBirdMovementComponent>(TEXT("Bird Movement Component"));
     MovementComponent->UpdatedComponent = RootComponent;
     MovementComponent->SetIsReplicated(true);
@@ -27,7 +27,6 @@ APlayerBirdPawn::APlayerBirdPawn()
 void APlayerBirdPawn::BeginPlay()
 {
     Super::BeginPlay();
-    SetReplicateMovement(true);
 
     if (MovementComponent)
     {
@@ -49,13 +48,6 @@ void APlayerBirdPawn::BeginPlay()
 UPawnMovementComponent* APlayerBirdPawn::GetMovementComponent() const
 {
     return MovementComponent;
-}
-
-void APlayerBirdPawn::GetLifetimeReplicatedProps(
-    TArray<class FLifetimeProperty>& OutLifetimeProps) const
-{
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(APlayerBirdPawn, MovementComponent);
 }
 
 // Called every frame

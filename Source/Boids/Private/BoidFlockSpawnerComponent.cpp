@@ -11,6 +11,7 @@ UBoidFlockSpawnerComponent::UBoidFlockSpawnerComponent()
     // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
     // off to improve performance if you don't need them.
     PrimaryComponentTick.bCanEverTick = true;
+    SetIsReplicated(false);
 
     // ...
 }
@@ -20,7 +21,8 @@ UBoidFlockSpawnerComponent::UBoidFlockSpawnerComponent()
 void UBoidFlockSpawnerComponent::BeginPlay()
 {
     Super::BeginPlay();
-    SpawnBoids();
+    if (GetOwnerRole() == ROLE_Authority)
+        SpawnBoids();
 }
 
 void UBoidFlockSpawnerComponent::SpawnBoids()
@@ -41,7 +43,7 @@ void UBoidFlockSpawnerComponent::SpawnBoids()
             ChildComponent->SetChildActorClass(BoidInstanceClass);
             ChildComponent->CreateChildActor();
             ChildComponent->SetWorldLocation(SpawnLocation);
-            Flock->AddSpawnedBoid(Cast<APawn>(ChildComponent->GetChildActor()));
+            Flock->AddSpawnedBoid(Cast<ABoidBase>(ChildComponent->GetChildActor()));
             FString SpawnLocStr = SpawnLocation.ToString();
             UE_LOG(LogTemp, Display, TEXT("Spawning boid at %s"), *SpawnLocStr);
         }

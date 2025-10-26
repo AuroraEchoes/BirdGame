@@ -5,7 +5,7 @@
 
 #include "BoidFlock.h"
 
-FBoidBehaviourDirectionInfo UBoidBehaviour::GetDesiredDirection_Implementation(ABoidFlock* Flock, APawn* Boid)
+FBoidBehaviourDirectionInfo UBoidBehaviour::GetDesiredDirection_Implementation(ABoidFlock* Flock, ABoidBase* Boid)
 {
     return FBoidBehaviourDirectionInfo{FVector::Zero(), 0.0};
 }
@@ -30,8 +30,8 @@ bool UBoidBehaviour::ShouldDebugVisualise() const
     return DebugVisualise;
 }
 
-TArray<APawn*> UBoidBehaviour::GetNeighbours(ABoidFlock* Flock,
-                                             const APawn* Boid) const
+TArray<ABoidBase*> UBoidBehaviour::GetNeighbours(ABoidFlock* Flock,
+                                             const ABoidBase* Boid) const
 {
     return Flock->GetNearbyBoidLocations(Boid, NeighbourRadius);
 }
